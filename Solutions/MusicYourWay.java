@@ -9,7 +9,7 @@ import java.util.Map;
 public class MusicYourWay {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in), 1024);
-        PrintWriter writer = new PrintWriter(new BufferedOutputStream(System.out));
+        PrintWriter writer = new PrintWriter(new BufferedOutputStream(System.out, 1024));
         String attributeString = reader.readLine();
         String[] attributeArray = attributeString.split(" ");
         int numAttributes = attributeArray.length;
