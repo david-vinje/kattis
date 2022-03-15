@@ -1,53 +1,56 @@
 import java.util.Scanner;
 
 public class NineKnights {
+    static final int N = 5;
+
     public static void main(String[] args) {
-        int n = 5;
         Scanner scan = new Scanner(System.in);
-        char[][] board = new char[n][n];
-        int count = 0;
-        for (int i=0; i<n; i++) {
+        char[][] board = new char[N][N];
+        int knightCount = 0;
+        for (int i = 0; i < N; i++) {
             char[] line = scan.nextLine().toCharArray();
-            for (int j=0; j<n; j++) {
+            for (int j = 0; j < N; j++) {
                 board[i][j] = line[j];
-                if (line[j] == 'k')
-                    count++;
+                if (board[i][j] == 'k')
+                    knightCount++;
             }
         }
-        if (count != 9) {
+        scan.close();
+        if (knightCount == 9) 
+            System.out.println(checkBoard(board));
+        else 
             System.out.println("invalid");
-            return;
-        }
-        for (int i=0; i<n-1; i++) {
-            for (int j=0; j<n; j++) {
-                if (board[i][j] == 'k') {
-                    if (j+2<n) {
-                        if (board[i+1][j+2] == 'k') {
-                            System.out.println("invalid");
-                            return;
-                        }
-                    }
-                    if (j-2>=0) {
-                        if (board[i+1][j-2] == 'k') {
-                            System.out.println("invalid");
-                            return;
-                        }
-                    }
-                    if (i+2<n && j+1<n) {
-                        if (board[i+2][j+1] == 'k') {
-                            System.out.println("invalid");
-                            return;
-                        }
-                    }
-                    if (i+2<n && j-1>=0) {
-                        if (board[i+2][j-1] == 'k') {
-                            System.out.println("invalid");
-                            return;
-                        }
+
+    }
+
+    public static String checkBoard(char[][] board) {
+        for (int i = 0; i < N - 1; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == '.')
+                    continue;
+
+                if (j < N - 2) {
+                    if (board[i + 1][j + 2] == 'k') {
+                        return "invalid";
                     }
                 }
+                if (j < N - 1 && i < N - 2) {
+                    if (board[i + 2][j + 1] == 'k') {
+                        return "invalid";
+                    }
+                }
+                if (j > 1) {
+                    if (board[i + 1][j - 2] == 'k') {
+                        return "invalid";
+                    }
+                }
+                if (i < N - 2 && j > 0) {
+                    if (board[i + 2][j - 1] == 'k') {
+                        return "invalid";
+                    }
+                }   
             }
         }
-        System.out.println("valid");
+        return "valid";
     }
 }
